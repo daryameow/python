@@ -40,7 +40,6 @@ def parse(page: BeautifulSoup):
 if __name__=='__main__':
  url = 'https://www.dme.ru/shopping/shop/'
  domain = "".join(re.findall('(https?://)?(www\.)?([-\w.]+)', url)[0])
- #page = get_page(url)
  page = requests.get(url).text
  f=BeautifulSoup(page, 'lxml')
  data = parse(f)
