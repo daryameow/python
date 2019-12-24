@@ -56,6 +56,6 @@ def get_dme(url: str):
 
 page = get_dme(url)
 data = parse_dme(page)
-write_res  with open('output.json', 'w', encoding='utf-8') as f:
+write_res  with open('dme.json', 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False)
 
