@@ -7,7 +7,7 @@ import re
 def pars(stran: BeautifulSoup):
     mag = {}
 
-    dan = (stran.find('div', class_='shadows_left')
+    data = (stran.find('div', class_='shadows_left')
            .find('div', class_='shadows_right')
            .find('div', class_='layout')
            .find('div', class_='main')
@@ -18,7 +18,7 @@ def pars(stran: BeautifulSoup):
            .find('div')
            .find('div'))
 
-    dan = dan.findAll(['a', 'h2', 'p'])
+    data = data.findAll(['a', 'h2', 'p'])
 
     key = ''
     for item in dan:
@@ -45,12 +45,12 @@ if __name__ == '__main__':
     domain = "".join(re.findall('(https?://)?(www\.)?([-\w.]+)', url)[0])
 
     stran = pol_stran(url)
-    dan = pars(stran)
-    chten(dan)
+    data = pars(stran)
+    chten(data)
 
     stran = requests.get(url).text
     d = BeautifulSoup(page, 'lxml')
-    dan = pars(d)
+    data = pars(d)
 
-    with open('mag.json', 'w', encoding='utf-8') as f:
-     json.dump(dan, f, ensure_ascii=False)
+    with open('parse_dme.json', 'w', encoding='utf-8') as f:
+     json.dump(data, f, ensure_ascii=False)
