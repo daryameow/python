@@ -8,19 +8,19 @@ url = 'https://www.dme.ru/shopping/shop/'
 domain = "".join(re.findall('(https?://)?(www\.)?([-\w.]+)', url)[0])
 
 
-page = requests.get(url).text
-d=BeautifulSoup(page, 'lxml')
+page_dme = requests.get(url).text
+parse_dme =BeautifulSoup(page_dme, 'lxml')
 
 
 
 
 
 
-def parse(page: BeautifulSoup):
+def parse(page_dme: BeautifulSoup):
     shops = {}
 
     # Добираемся до списка магазинов
-    data = (page.find('div', class_='shadows_left')
+    data = (page_dme.find('div', class_='shadows_left')
             .find('div', class_='shadows_right')
             .find('div', class_='layout')
             .find('div', class_='main')
@@ -52,7 +52,7 @@ def parse(page: BeautifulSoup):
 
     return shops
 
-data = parse(d)
+data = parse(parse_dme)
 
-with open('Timoha2.json', 'w', encoding='utf-8') as f:
+with open('parse_dme.json', 'w', encoding='utf-8') as f:
      json.dump(data, f, ensure_ascii=False)
