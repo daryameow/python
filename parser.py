@@ -6,22 +6,22 @@ import re
 url = 'https://www.dme.ru/shopping/shop/'
 
 
-domain = "".join(re.findall('(https?://)?(www\.)?([-\w.]+)', url)[0])
+address= "".join(re.findall('(https?://)?(www\.)?([-\w.]+)', url)[0])
 
 
-def write(data: dict):
+def write_res(data: dict):
     
     with open('output.json', 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False)
 
 
-def get_page(url: str):
+def get_dme(url: str):
     
     page = requests.get(url).text
     return BeautifulSoup(page, 'lxml')
 
 
-def parse(page: BeautifulSoup):
+def parse_dme(page: BeautifulSoup):
     shops = {}
 
     
@@ -52,14 +52,14 @@ def parse(page: BeautifulSoup):
             shops[key]['location'] = re.split(pattern, item.text)[1]
 
         elif key and item.name == 'a' and item.text:
-            shop_url = domain + (item.attrs["href"] if item.attrs['href'][0] == '/' else f'/{item.attrs["href"]}')
+            shop_url = address + (item.attrs["href"] if item.attrs['href'][0] == '/' else f'/{item.attrs["href"]}')
             shops[key]['shops'].append({'name': item.text, 'url': shop_url})
 
     return shops
 
 
 
-page = get_page(url)
-data = parse(page)
-write(data)
+page = get_dme(url)
+data = parse_dme(page)
+write_res(data)
 
