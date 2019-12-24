@@ -6,7 +6,7 @@ import re
 def parse(page: BeautifulSoup):
     shops = {}
 
-    data = (page.find('div', class_='shadows_left')
+    dme = (page.find('div', class_='shadows_left')
             .find('div', class_='shadows_right')
             .find('div', class_='layout')
             .find('div', class_='main')
@@ -17,10 +17,10 @@ def parse(page: BeautifulSoup):
             .find('div')
             .find('div'))
 
-    data = data.findAll(['a', 'h2', 'p'])
+    dme = dme.findAll(['a', 'h2', 'p'])
 
     key = ''
-    for item in data:
+    for item in dme:
         if item.name == 'h2':
 
             shops.update({item.text: {'label': item.text, 'point': 'неизвестно', 'markets': []}})
@@ -41,8 +41,8 @@ if __name__=='__main__':
  url = 'https://www.dme.ru/shopping/shop/'
  domain = "".join(re.findall('(https?://)?(www\.)?([-\w.]+)', url)[0])
  page = requests.get(url).text
- f=BeautifulSoup(page, 'lxml')
- data = parse(f)
- with open('dme_parse.json', 'w', encoding='utf-8') as f:
-    json.dump(data, f, ensure_ascii=False)
+ parse=BeautifulSoup(page, 'lxml')
+ dme = parse(parse)
+ with open('dme_parse.json', 'w', encoding='utf-8') as parse:
+    json.dump(dme, parse, ensure_ascii=False)
     
