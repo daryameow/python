@@ -15,17 +15,17 @@ domain = "".join(re.findall('(https?://)?(www\.)?([-\w.]+)', url)[0])
 
 
 
-def get_page(url: str):
+def get_dme(url: str):
     
-    page = requests.get(url).text
-    return BeautifulSoup(page, 'lxml')
+    page_dme = requests.get(url).text
+    return BeautifulSoup(page_dme, 'lxml')
 
 
-def parse(page: BeautifulSoup):
+def my_parser(page_dme: BeautifulSoup):
     shops = {}
 
     
-    data = (page.find('div', class_='shadows_left')
+    data = (page_dme.find('div', class_='shadows_left')
             .find('div', class_='shadows_right')
             .find('div', class_='layout')
             .find('div', class_='main')
@@ -58,6 +58,6 @@ def parse(page: BeautifulSoup):
 
 
 
-page = get_page(url)
-data = parse(page)
+page_dme = get_dme(url)
+data = my_parser(page_dme)
 write(data)
