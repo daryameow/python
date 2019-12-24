@@ -43,6 +43,6 @@ if __name__=='__main__':
  page = requests.get(url).text
  f=BeautifulSoup(page, 'lxml')
  data = parse(f)
- with open('HW3.json', 'w', encoding='utf-8') as f:
+ with open('dme_parse.json', 'w', encoding='utf-8') as f:
     json.dump(data, f, ensure_ascii=False)
     
