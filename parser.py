@@ -9,20 +9,15 @@ url = 'https://www.dme.ru/shopping/shop/'
 address= "".join(re.findall('(https?://)?(www\.)?([-\w.]+)', url)[0])
 
 
-def write_res(data: dict):
+def parse_dme(page: BeautifulSoup):
+    shops = {}
     
-    with open('output.json', 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False)
-
 
 def get_dme(url: str):
     
     page = requests.get(url).text
     return BeautifulSoup(page, 'lxml')
 
-
-def parse_dme(page: BeautifulSoup):
-    shops = {}
 
     
     data = (page.find('div', class_='shadows_left')
@@ -61,5 +56,6 @@ def parse_dme(page: BeautifulSoup):
 
 page = get_dme(url)
 data = parse_dme(page)
-write_res(data)
+write_res  with open('output.json', 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False)
 
