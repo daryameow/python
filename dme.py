@@ -19,7 +19,7 @@ parse_dme =BeautifulSoup(page_dme, 'lxml')
 def parse(page_dme: BeautifulSoup):
     shops = {}
 
-    # Добираемся до списка магазинов
+   
     data = (page_dme.find('div', class_='shadows_left')
             .find('div', class_='shadows_right')
             .find('div', class_='layout')
@@ -31,18 +31,18 @@ def parse(page_dme: BeautifulSoup):
             .find('div')
             .find('div'))
 
-    # Ищем все заголовки, ссылки, абзацы (в них расположена информация о магазинах)
+    
     data = data.findAll(['a', 'h2', 'p'])
 
     key = ''
     for item in data:
         if item.name == 'h2':
-            # Создаем новый раздел, если находим заголовок (название раздела)
+            
             shops.update({item.text: {'name': item.text, 'location': 'неизвестно', 'shops': []}})
             key = item.text
 
         elif key and item.name == 'p' and 'располож' in item.text:
-            # Преобразовываем и записываем местоположение магазинов, если находим таковое
+            
             pattern = re.compile('расположен[\w]?\s', re.IGNORECASE)
             shops[key]['location'] = re.split(pattern, item.text)[1]
 
